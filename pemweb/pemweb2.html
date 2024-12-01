@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konversi Nilai Mahasiswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            margin: 50px auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4b400;
+            color: white;
+        }
+        td {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Konversi Nilai Mahasiswa</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Mahasiswa</th>
+                <th>Nilai</th>
+                <th>Huruf Mutu</th>
+                <th>Angka Mutu</th>
+            </tr>
+        </thead>
+        <tbody id="nilai-table">
+        </tbody>
+    </table>
+
+    <script>
+        const mahasiswa = [
+            { nama: "Atha", nilai: 85 },
+            { nama: "Budi", nilai: 78 },
+            { nama: "Citra", nilai: 65 },
+            { nama: "Dewi", nilai: 50 },
+            { nama: "Eko", nilai: 45 }
+        ];
+
+        function konversiHurufMutu(nilai) {
+            switch (true) {
+                case (nilai >= 80):
+                    return 'A';
+                case (nilai > 75):
+                    return 'B+';
+                case (nilai > 69):
+                    return 'B';
+                case (nilai > 60):
+                    return 'C+';
+                case (nilai > 55):
+                    return 'C';
+                case (nilai > 50):
+                    return 'D+';
+                case (nilai > 44):
+                    return 'D';
+                default:
+                    return 'E';
+            }
+        }
+
+        function konversiAngkaMutu(nilai) {
+            if (nilai >= 80) {
+                return 3.75;
+            } else if (nilai > 75) {
+                return 3.25;
+            } else if (nilai > 69) {
+                return 2.75;
+            } else if (nilai > 60) {
+                return 2.25;
+            } else if (nilai > 55) {
+                return 1.75;
+            } else if (nilai > 50) {
+                return 1.25;
+            } else if (nilai > 44) {
+                return 0.75;
+            } else {
+                return 0;
+            }
+        }
+
+        const tableBody = document.getElementById("nilai-table");
+
+        mahasiswa.forEach((mhs, index) => {
+            const row = document.createElement("tr");
+            const hurufMutu = konversiHurufMutu(mhs.nilai);
+            const angkaMutu = konversiAngkaMutu(mhs.nilai);
+            
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${mhs.nama}</td>
+                <td>${mhs.nilai}</td>
+                <td>${hurufMutu}</td>
+                <td>${angkaMutu}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>
